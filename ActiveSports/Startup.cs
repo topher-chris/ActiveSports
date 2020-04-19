@@ -23,9 +23,12 @@ namespace ActiveSports
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration["Data:ActiveSportsProducts:ConnectionString"]));
+                    Configuration["Data:ActiveSportsProducts:ConnectionString3"]));
 
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();   //this was not here at page 273
+            services.AddTransient<IOrderRepository, EFOrderRepository> ();
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddMemoryCache();
             services.AddSession();
@@ -61,8 +64,7 @@ namespace ActiveSports
                    template: "{category}",
                     defaults: new { controller = "Product", action = "List", productPage = 1 }
                         );
-
-       
+      
                 routes.MapRoute(
                     name: null,
                     template: "",
