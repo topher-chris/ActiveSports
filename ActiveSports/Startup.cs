@@ -23,7 +23,7 @@ namespace ActiveSports
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration["Data:ActiveSportsProducts:ConnectionString3"]));
+                    Configuration["Data:ActiveSportsProducts:ConnectionString5"]));
 
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
